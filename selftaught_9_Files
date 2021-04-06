@@ -1,0 +1,107 @@
+# Writing to files 
+# 1. Open a file.  Use "Open" function w/ 2 parameters
+#       1a. string representing the path to the file to open 
+#       1b. string representing the mode to open the file in
+
+# The "Path" function takes each folder and builds a file path for you
+
+import os
+print (os.path.join("Users", "bob", "st.txt"))
+
+# Mode you pass to the "open" function determines what actions you will be able to perform on the file you open
+    # 'r' - opens file for read only
+    # 'w' - opens a file for writing only
+        # If file does not exist, it creates it.
+    # 'w+' - opens a file for reading and writing
+# 'Open' function returns an object called a FILE OBJECT
+    # you can use it to read and/or write to your file.
+
+st = open("Aaron.txt", "w")
+st.write("Hello MothaFUCKAZ!!!  I'll get this coding thing down eventually")
+st.close()
+
+word = open("Aaron.doc", "w")
+word.write("Hello MothaFUCKAZ!!!  I'll get this coding thing down eventually")
+word.close()
+
+excel = open("Aaron.xls", "w")
+excel.write("Lets see if this works in Excel")
+excel.close()
+
+# Alternate syntax for writing to a file and automatically closing it
+    # with-statement 
+
+with open("Aaron.txt", "w") as f:
+    f.write("\n")
+    f.write("Can I add 2 separate lines?")
+    f.write("\n")
+    f.write("Lets try and add another line")
+    f.write("\n")
+    f.write("Nope, this over-rode the text added in line 20")
+
+# Opening a file, reading it, then closing it... similar syntax
+with open("Aaron.doc", "r") as f:
+    print(f.read())
+
+with open("Aaron.txt", "r") as f:
+    print(f.read())
+
+# Sacving the contents of a file to a list
+my_list = list()
+with open("Aaron.txt", "r") as f:
+    my_list.append(f.read())
+print(my_list)
+
+# CSV Files - "Comma Separated Values"
+# Each piece of data separated by commas represents a cell in a spreadsheet
+# every line in a csv file represents a row
+# DELIMITER - a symbol like "," or "|" used to separate data in a csv file
+# Open csv file w/ with-statement
+    # use "csv module" to convert file into a csv object
+    # csv module has a method called "writer" that accepts a file object with delimiter
+    # writer method returns a csv object that has a method called "writerow"
+    # writerow method accepts a list as a parameter, and is used to write to a csv file
+    # writerow only creates one row.  Call it twice to create 2 rows
+import csv
+
+with open("Aaron.csv", "w") as f:
+    w = csv.writer(f, delimiter=",")
+    w.writerow(["one", "two", "three", "four", "five"])
+    w.writerow(["six", "seven", "eight", "nine", "ten"])
+
+# Read contents of a file w/ csv module
+import csv
+with open("Aaron.csv", "r") as f:
+    r = csv.reader(f, delimiter=",")
+    for row in r:
+        print(",".join(row))
+
+# 1. Find a file on your computer and print its contents using Python
+with open("/Users/orndorff52/Documents/Arduino/Bore.Sensor.Project/IMU.for.Testing.FINAL/IMU.for.Testing.FINAL.ino", "r") as f:
+    print(f.read())
+
+# 2. Write a program that asks a user a question and saves the answer to a file
+name = raw_input("What is your name?")
+print(name)
+with open("name.txt", "w") as f:
+    f.write(name)
+
+# 3. Take the items in this list of lists: ["Top Gun", "Risky Business", "Minority Report"] , ["Titanic", "The Revenant", "Full Metal Jacket", "Inception"] , ["Training Day", "Man On Fire", "Flight"] and write them to a csv file
+import csv
+with open("movies.csv", "w") as f:
+    w = csv.writer(f, delimiter=",")
+    w.writerow(["Top Gun", "Risky Business", "Minority Report"])
+    w.writerow(["Titanic", "The Revenant", "Full Metal Jacket", "Inception"])
+    w.writerow(["Training Day", "Man On Fire", "Flight"])
+
+# Alternate Syntax (Answer Key)
+import csv
+movies2 = [["Top Gun", "Risky Business", "Minority Report"], ["Titanic", "The Revenant", "Full Metal Jacket", "Inception"], ["Training Day", "Man On Fire", "Flight"]]
+with open("movies2.csv", "w") as csvfile:
+    spamwriter = csv.writer(csvfile, delimiter=",")
+    for movie_list in movies2:
+        spamwriter.writerow(movie_list)
+
+
+
+
